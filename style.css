@@ -1,9 +1,8 @@
-/*aula1- ESTRUTURANDO O SITE*/
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&display=swap');
 
 :root {
     --cor-de-fundo: #1E1E1E;
-    --verde: #000000;
+    --preto: #000000;
     --branco: #FFFFFF;
     --botao-ativo: #4682B4;
     --botao-inativo: #87CEFA;
