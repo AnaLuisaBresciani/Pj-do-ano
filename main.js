@@ -108,8 +108,7 @@ function calculaTempo(tempoObjetivo) {
  return dias + " dias " + horas + " horas " + minutos + " minutos " + segundos + " segundos";
 }*/
 
-//Aula7 - Automatizando atualizações
-
+//Aula7 - Automatizando atualizações (código aula6 abaixo)
 const botoes = document.querySelectorAll(".botao");
 const textos = document.querySelectorAll(".aba-conteudo");
 
@@ -126,20 +125,13 @@ for (let i = 0; i < botoes.length; i++) {
     }
 }
 
-/*1ª explicação
-
-// definição do tempo dos objetivos
 const contadores = document.querySelectorAll(".contador");
 const tempoObjetivo1 = new Date("2024-12-01T00:00:00");
-const tempoObjetivo2 = new Date("2024-11-25T00:00:00");
-const tempoObjetivo3 = new Date("2024-12-06T00:00:00");
-const tempoObjetivo4 = new Date("2024-12-31T00:00:00");
+const tempoObjetivo2 = new Date("2024-11-25T00:00:00"); 
+const tempoObjetivo3 = new Date("2024-12-06T00:00:00"); 
+const tempoObjetivo4 = new Date("2024-12-31T00:00:00"); 
 
-//chamar uma função chamada calculaTempo(), que terá como parâmetro inicial de entrada o tempoObjetivo1.
-contadores[0].textContent = calculaTempo(tempoObjetivo1); //aba de divisão de conteúdo, que vai receber a função
-contadores[1].textContent = calculaTempo(tempoObjetivo2); //aba de divisão de conteúdo, que vai receber a função
-contadores[2].textContent = calculaTempo(tempoObjetivo3); //aba de divisão de conteúdo, que vai receber a função
-contadores[3].textContent = calculaTempo(tempoObjetivo4); //aba de divisão de conteúdo, que vai receber a função
+const tempos = [tempoObjetivo1,tempoObjetivo2,tempoObjetivo3,tempoObjetivo4];
 
 function calculaTempo(tempoObjetivo) {
     let tempoAtual = new Date();
@@ -153,63 +145,66 @@ function calculaTempo(tempoObjetivo) {
     minutos %= 60;
     horas %= 24;
  
- return dias + " dias " + horas + " horas " + minutos + " minutos " + segundos + " segundos";
+    if (tempoFinal > 0){
+        return dias + " dias " + horas + " horas " + minutos + " minutos " + segundos + " segundos"; 
+    } else {
+        return "Prazo Finalizado";
+    }
 }
-Fim da 1ª explicação*/ 
 
-/*2ª explicação - Automatizando o código:
-
-// definição do tempo dos objetivos
-const tempoObjetivo1 = new Date("2024-12-01T00:00:00");
-const tempoObjetivo2 = new Date("2024-11-25T00:00:00");
-const tempoObjetivo3 = new Date("2024-12-06T00:00:00");
-const tempoObjetivo4 = new Date("2024-12-31T00:00:00");
-
-//automatizar o código, criar uma variável chamada tempos, que receberá uma lista.
-const tempos =
-[tempoObjetivo1,tempoObjetivo2,tempoObjetivo3,tempoObjetivo4];
-
-//laço de repetição que altera automaticamente o valor do índice para 0, 1, 2 e 3,automatizando o código.
-/*for (let i = 0; i < contadores.length; i++) {
-    contadores[i].textContent = calculaTempo(tempos[0]);
+function atualizaCronometro(){ 
+    for (let i=0; i<contadores.length;i++){ 
+        contadores[i].textContent = calculaTempo(tempos[i]); 
     }
+}
 
-//substituindo o valor do índice (0) pela variável contadora i.
-for (let i = 0; i < contadores.length; i++) {
-    contadores[i].textContent = calculaTempo(tempos[i]);
-    }
-*/
+function comecaCronometro(){ 
+    atualizaCronometro(); 
+    setInterval(atualizaCronometro,1000); 
+}
 
-//3ª explicação - função para atualizar o cronômetro:
+comecaCronometro(); //
 
-// definição do tempo dos objetivos
+
+/*Aula7 - Explicação - adicionar as linhas marcadas abaixo
+
+// Adicionando outros objetivos, definição do tempo dos objetivos
 const contadores = document.querySelectorAll(".contador");
 const tempoObjetivo1 = new Date("2024-12-01T00:00:00");
-const tempoObjetivo2 = new Date("2024-11-25T00:00:00");
-const tempoObjetivo3 = new Date("2024-12-06T00:00:00");
-const tempoObjetivo4 = new Date("2024-12-31T00:00:00");
+const tempoObjetivo2 = new Date("2024-11-25T00:00:00"); 
+const tempoObjetivo3 = new Date("2024-12-06T00:00:00"); 
+const tempoObjetivo4 = new Date("2024-12-31T00:00:00"); 
 
-//automatizar o código, criar uma variável chamada tempos, que receberá uma lista.
-const tempos =
-[tempoObjetivo1,tempoObjetivo2,tempoObjetivo3,tempoObjetivo4];
+/*OBSERVAÇÃO: chamar uma função chamada calculaTempo(), que terá como parâmetro inicial de entrada o tempoObjetivo1
+adicionar os elementos da classe contador dentro do nosso conteúdo para que a função calculaTempo seja efetiva
+contadores[0].textContent = calculaTempo(tempoObjetivo1); 
+contadores[1].textContent = calculaTempo(tempoObjetivo2); 
+contadores[2].textContent = calculaTempo(tempoObjetivo3); 
+contadores[3].textContent = calculaTempo(tempoObjetivo4); 
 
-/*substituindo o valor do índice (0) pela variável contadora i.
-for (let i = 0; i < contadores.length; i++) {
-    contadores[i].textContent = calculaTempo(tempos[i]);
-    }*/
+ //Automatizar o código contadores. Portanto, abaixo das variáveis const, criar uma variável chamada tempos, que receberá uma lista. 
+ const tempos = [tempoObjetivo1,tempoObjetivo2,tempoObjetivo3,tempoObjetivo4];
 
-//função para atualizar o cronômetro e no escopo da função (entre chaves) adicionar o laço de repetição.
-function atualizaCronometro(){
-    document.getElementById("dias0").textContent = calculaTempo(tempos[0])[0];
-    document.getElementById("horas0").textContent = calculaTempo(tempos[0])[1];
-    document.getElementById("min0").textContent = calculaTempo(tempos[0])[2];
-    document.getElementById("seg0").textContent = calculaTempo(tempos[0])[3];
-}
-    for (let i=0; i<contadores.length;i++){
-       // contadores[i].textContent = calculaTempo(tempos[i]);   
+ //Assim podemos alterar somente a nossa função, ou seja, ao invés de chamar o tempoObjetivo1 nos vamos chamar a várivel tempos[0]`:
+ contadores[0].textContent = calculaTempo(tempoObjetivo1); 
+
+ contadores[0].textContent = calculaTempo(tempos[0]); 
+
+ /*Obs: somente o primeiro contador recebeu a contagem de tempo então:
+ Laço de repetição, mover a linha contadores[0].textContent = calculaTempo(tempos[0]);, que se refere à nossa lista contadores, 
+ para dentro do nosso laço de repetição.*/
+
+ /* Laço de repetição, para cada objetivo na lista de contadores
+
+ for (let i=0; i<contadores.length;i++){ //adicionar
+    //Calcular o tempo usando a função e associá-lo ao objetivo
+            contadores[i].textContent = calculaTempo(tempos[i]);  
+
+function atualizaCronometro(){   
+    for (let i=0; i<contadores.length;i++){   
+        contadores[i].textContent = calculaTempo(tempos[i]);     
     }
-
-//após a declaração da função, chamamos por ela novamente:
+}
 
 function comecaCronometro(){
     atualizaCronometro();
@@ -217,6 +212,57 @@ function comecaCronometro(){
 }
 
 comecaCronometro();
+
+
+function calculaTempo(tempoObjetivo) {
+    let tempoAtual = new Date();
+    let tempoFinal = tempoObjetivo - tempoAtual;
+    let segundos = Math.floor(tempoFinal / 1000);
+    let minutos = Math.floor(segundos / 60);
+    let horas = Math.floor(minutos / 60);
+    let dias = Math.floor(horas / 24);
+
+    segundos %= 60;
+    minutos %= 60;
+    horas %= 24;
+ 
+     return dias + " dias " + horas + " horas " + minutos + " minutos " + segundos + " segundos"; //adicionar na função de retorno
+
+    if (tempoFinal > 0){  
+        return dias + " dias " + horas + " horas " + minutos + " minutos " + segundos + " segundos"; //adicionar
+    } else {
+        return "Prazo Finalizado"; 
+    }
+
+/*se o tempo for menor que zero, devemos programar para que seja exibida uma mensagem de que o prazo foi esgotado. Dessa
+forma, a contagem do tempo que resta ocorrerá apenas se esse tempo for positivo.*/
+
+
+/*const botoes = document.querySelectorAll(".botao");
+const textos = document.querySelectorAll(".aba-conteudo");
+
+for (let i = 0; i < botoes.length; i++) {
+    botoes[i].onclick = function () {
+
+        for (let j = 0; j < botoes.length; j++) {
+            botoes[j].classList.remove("ativo");
+            textos[j].classList.remove("ativo");
+        }
+
+        botoes[i].classList.add("ativo");
+        textos[i].classList.add("ativo");
+    }
+}
+
+const contadores = document.querySelectorAll(".contador");
+const tempoObjetivo1 = new Date("2024-12-01T00:00:00");
+const tempoObjetivo2 = new Date("2024-11-25T00:00:00"); 
+const tempoObjetivo3 = new Date("2024-12-06T00:00:00"); 
+const tempoObjetivo4 = new Date("2024-12-31T00:00:00"); 
+
+
+const tempos = [tempoObjetivo1,tempoObjetivo2,tempoObjetivo3,tempoObjetivo4];
+
 
 function calculaTempo(tempoObjetivo) {
     let tempoAtual = new Date();
@@ -230,12 +276,25 @@ function calculaTempo(tempoObjetivo) {
     minutos %= 60;
     horas %= 24;
     if (tempoFinal > 0){
-        return [dias, horas, minutos, segundos];
+        return [dias,horas,minutos,segundos];
     } else {
         return [0,0,0,0];
+        
     }
 }
-/*se o tempo for menor que zero, devemos programar para
-que seja exibida uma mensagem de que o prazo foi esgotado. Dessa
-forma, a contagem do tempo que resta ocorrerá apenas se esse tempo
-for positivo.*/
+
+function atualizaCronometro(){
+    for (let i=0; i<contadores.length;i++){
+        document.getElementById("dias"+i).textContent = calculaTempo(tempos[i])[0];
+        document.getElementById("horas"+i).textContent = calculaTempo(tempos[i])[1];
+        document.getElementById("min"+i).textContent = calculaTempo(tempos[i])[2];
+        document.getElementById("seg"+i).textContent = calculaTempo(tempos[i])[3];   
+    }
+}
+
+function comecaCronometro(){
+    atualizaCronometro();
+    setInterval(atualizaCronometro,1000);
+}
+
+comecaCronometro();*/
